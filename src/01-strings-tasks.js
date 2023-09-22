@@ -204,7 +204,17 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-  ;
+  let rectangle = '';
+  for (let i = 0; i < height; i += 1) {
+    if (i === 0) {
+      rectangle += `${String.fromCharCode(9484) + (String.fromCharCode(9472)).repeat(width - 2) + String.fromCharCode(9488)}\n`;
+    } else if (i === (height - 1)) {
+      rectangle += `${String.fromCharCode(9492) + (String.fromCharCode(9472)).repeat(width - 2) + String.fromCharCode(9496)}\n`;
+    } else {
+      rectangle += `${String.fromCharCode(9474) + (String.fromCharCode(32)).repeat(width - 2) + String.fromCharCode(9474)}\n`;
+    }
+  }
+  return rectangle;
 }
 
 
@@ -224,8 +234,14 @@ function getRectangleString(width, height) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  let result = '';
+  const alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ?.,!';
+  const cypher = 'nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM ?.,!';
+  for (let i = 0; i < str.length; i += 1) {
+    result += cypher[alphabet.indexOf(str[i])];
+  }
+  return result;
 }
 
 /**
@@ -241,8 +257,8 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  return (typeof (value) === 'string' || value instanceof String);
 }
 
 
@@ -270,8 +286,9 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const cards = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣', 'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦', 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  return cards.indexOf(value);
 }
 
 
