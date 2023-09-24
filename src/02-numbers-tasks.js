@@ -182,8 +182,8 @@ function getParallelepipedDiagonal(a, b, c) {
  *   1678, 2  => 1700
  *   1678, 3  => 2000
  */
-function roundToPowerOfTen(/* num, pow */) {
-  throw new Error('Not implemented');
+function roundToPowerOfTen(num, pow) {
+  return (Math.round(num / (10 ** pow))) * (10 ** pow);
 }
 
 /**
@@ -203,8 +203,17 @@ function roundToPowerOfTen(/* num, pow */) {
  *   16 => false
  *   17 => true
  */
-function isPrime(/* n */) {
-  throw new Error('Not implemented');
+function isPrime(n) {
+  const sqrt = Math.floor(Math.sqrt(n));
+  if (n < 3) {
+    return true;
+  }
+  for (let i = 2; i <= sqrt; i += 1) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+  return true;
 }
 
 /**
@@ -222,8 +231,11 @@ function isPrime(/* n */) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
-  throw new Error('Not implemented');
+function toNumber(value, def) {
+  if ((typeof (parseInt(value, 10)) === 'number') && !Number.isNaN(parseInt(value, 10))) {
+    return parseInt(value, 10);
+  }
+  return def;
 }
 
 module.exports = {
