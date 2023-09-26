@@ -483,10 +483,11 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const dirs = pathes.map((path) => path.split('/'));
+  const index = dirs[0].findIndex((x, i) => dirs.some((dir) => x !== dir[i]));
+  return index === 0 ? '' : `${dirs[0].slice(0, index).join('/')}/`;
 }
-
 
 /**
  * Returns the product of two specified matrixes.
@@ -506,8 +507,19 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const result = [];
+  for (let i = 0; i < m1.length; i += 1) {
+    result[i] = [];
+    for (let j = 0; j < m2[0].length; j += 1) {
+      let sum = 0;
+      for (let k = 0; k < m1[0].length; k += 1) {
+        sum += m1[i][k] * m2[k][j];
+      }
+      result[i][j] = sum;
+    }
+  }
+  return result;
 }
 
 
@@ -541,8 +553,42 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  if (position[0][0] === 'X' || position[0][0] === '0') {
+    if (position[0][0] === position[0][1] && position[0][0] === position[0][2]) {
+      return position[0][0];
+    }
+    if (position[0][0] === position[1][1] && position[0][0] === position[2][2]) {
+      return position[0][0];
+    }
+    if (position[0][0] === position[1][0] && position[0][0] === position[2][0]) {
+      return position[0][0];
+    }
+  }
+  if (position[0][1] === 'X' || position[0][1] === '0') {
+    if (position[0][1] === position[1][1] && position[0][1] === position[2][1]) {
+      return position[0][1];
+    }
+  }
+  if (position[0][2] === 'X' || position[0][2] === '0') {
+    if (position[0][2] === position[1][2] && position[0][2] === position[2][2]) {
+      return position[0][2];
+    }
+    if (position[0][2] === position[1][1] && position[0][2] === position[2][0]) {
+      return position[0][2];
+    }
+  }
+  if (position[1][0] === 'X' || position[1][0] === '0') {
+    if (position[1][0] === position[1][1] && position[1][0] === position[1][2]) {
+      return position[1][0];
+    }
+  }
+  if (position[2][0] === 'X' || position[2][0] === '0') {
+    if (position[2][0] === position[2][1] && position[2][0] === position[2][2]) {
+      return position[2][0];
+    }
+  }
+  return undefined;
 }
 
 
