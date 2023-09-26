@@ -268,8 +268,12 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  let result = '';
+  for (let i = str.length - 1; i >= 0; i -= 1) {
+    result += str[i];
+  }
+  return result;
 }
 
 
@@ -351,8 +355,21 @@ function isCreditCardNumber(ccn) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  let str = num.toString();
+  let sum = 0;
+  for (let i = 0; i < str.length; i += 1) {
+    sum += parseInt(str[i], 10);
+  }
+  str = sum.toString();
+  while (str.length > 1) {
+    sum = 0;
+    for (let i = 0; i < str.length; i += 1) {
+      sum += parseInt(str[i], 10);
+    }
+    str = sum.toString();
+  }
+  return sum;
 }
 
 
@@ -377,8 +394,48 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  let countA = 0;
+  let countB = 0;
+  let countC = 0;
+  let countD = 0;
+  let countAc = 0;
+  let countBc = 0;
+  let countCc = 0;
+  let countDc = 0;
+  if (str[0] === ')' || str[0] === ']' || str[0] === '}' || str[0] === '>') {
+    return false;
+  }
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === '(') {
+      countA += 1;
+    }
+    if (str[i] === '[') {
+      countB += 1;
+    }
+    if (str[i] === '{') {
+      countC += 1;
+    }
+    if (str[i] === '<') {
+      countD += 1;
+    }
+    if (str[i] === ')') {
+      countAc += 1;
+    }
+    if (str[i] === ']') {
+      countBc += 1;
+    }
+    if (str[i] === '}') {
+      countCc += 1;
+    }
+    if (str[i] === '>') {
+      countDc += 1;
+    }
+  }
+  if (!(countA === countAc && countB === countBc && countC === countCc && countD === countDc)) {
+    return false;
+  }
+  return true;
 }
 
 
